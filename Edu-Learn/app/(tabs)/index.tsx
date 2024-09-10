@@ -4,6 +4,22 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from "expo-router";
 
+import axios from 'axios'
+
+interface Course{
+  id:string;
+  title:string;
+  subtitle:string;
+  image_480x270: string;
+  is_paid:boolean;
+  price:string;
+  num_reviews:number;
+}
+
+interface SearchResponse{
+  results:Course[];
+}
+
 interface Category{
   id:string;
   name:string;
@@ -19,6 +35,16 @@ const categories: Category[] = [
   {id: "music", name: "Music", icon:"musical-notes"},
   {id: "lifestyle", name: "Lifestyle", icon:"heart"}, 
 ];
+
+// const fetchCourses = async(searchTerm: string): Promise<SearchResponse> => {
+//   const repsonse = await axios.get(`https://www.udemy.com/api-2.0/courses`,{
+//     param:{search: searchTerm},
+//     auth{
+//       username:"",
+//       password:"",
+//     }
+//   })
+// }
 
 export default function HomeScreen() {
 
@@ -87,7 +113,7 @@ export default function HomeScreen() {
       <ScrollView className="flex-1 bg-white gap-4">
         <Animated.View className="gap-0"
         entering={FadeInDown.duration(500).delay(200).springify()}>
-          <View className="flex-row justify-between px-6 pt- 4  items-center">
+          <View className="flex-row justify-between px-6 pt-4  items-center">
             <Text className="text-lg"
             style={{fontFamily:'BarlowSemiBold'}}>Explore Topics</Text>
 
