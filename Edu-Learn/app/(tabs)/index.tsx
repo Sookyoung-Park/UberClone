@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from "expo-router";
-
-import axios from 'axios'
+import { FlatList } from "react-native";
 
 interface Course{
   id:string;
@@ -15,17 +14,14 @@ interface Course{
   price:string;
   num_reviews:number;
 }
-
-interface SearchResponse{
-  results:Course[];
-}
-
+// interface SearchResponse{
+//   results:Course[];
+// }
 interface Category{
   id:string;
   name:string;
   icon:string;
 }
-
 const categories: Category[] = [
   {id: "business", name: "Business", icon:"briefcase"},
   {id: "tech", name: "Tech", icon:"hardware-chip"},
@@ -36,19 +32,78 @@ const categories: Category[] = [
   {id: "lifestyle", name: "Lifestyle", icon:"heart"}, 
 ];
 
-// const fetchCourses = async(searchTerm: string): Promise<SearchResponse> => {
-//   const repsonse = await axios.get(`https://www.udemy.com/api-2.0/courses`,{
-//     param:{search: searchTerm},
-//     auth{
-//       username:"",
-//       password:"",
-//     }
-//   })
-// }
+//Soo
+type ItemData_Soo = {
+  id:string;
+  title:string;
+  subtitle:string;
+  image_480x270: string;
+  is_paid:boolean;
+  price:string;
+  num_reviews:number;
+};
+
+const DATA: ItemData_Soo[] = [
+  {
+    id:'business',
+    title:'MBA1',
+    subtitle:'test subtitle1',
+    image_480x270: 'string',
+    is_paid:true,
+    price:'400',
+    num_reviews:570,
+  },
+  {
+    id:'business',
+    title:'MBA2',
+    subtitle:'test subtitle2',
+    image_480x270: 'string',
+    is_paid:true,
+    price:'200',
+    num_reviews:5,
+  },
+  {
+    id:'tech',
+    title:'Tech1',
+    subtitle:'test subtitle3',
+    image_480x270: 'string',
+    is_paid:true,
+    price:'4',
+    num_reviews:30,
+  },
+];
+
+type ItemProps = {
+  item: ItemData_Soo;
+  onPress: () => void;
+};
+
+
+const Item = ({item, onPress}: ItemProps) => (
+  <Pressable onPress={onPress} >
+    <Text>{item.title}</Text>
+    <Text>Paid: {item.price}</Text>
+    <Text>Review:{item.num_reviews}</Text>
+    <Text>subtitle: {item.subtitle}</Text>
+  </Pressable>
+);
+
+
 
 export default function HomeScreen() {
 
-  const [selectedCategory, setSelectedCategory]=useState("Business")
+  const [selectedCategory, setSelectedCategory]=useState("business")
+
+  const renderItem = ({item}: {item: ItemData_Soo}) => {
+    if (item.id===selectedCategory){
+      return (
+        <Item
+          item={item}
+          onPress={() => console.log(item.id)}
+        />
+      );
+    }
+  };
 
   const renderCategory = ({item}: {item: Category}) => (
     <Pressable 
@@ -137,10 +192,21 @@ export default function HomeScreen() {
             })
           }
           </ScrollView>
-          
-
+          <View></View>  
         </Animated.View>
 
+        {/* Category Courses */}
+        <View >
+          <FlatList 
+            horizontal={true}
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            extraData={selectedCategory}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+        
       </ScrollView>
       
       

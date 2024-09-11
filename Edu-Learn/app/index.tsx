@@ -9,6 +9,7 @@ import LottieView from 'lottie-react-native'
 const Welcome = () => {
   const animation = useRef<LottieView>(null);
   return (
+
     <View className="bg-white gap-4 p-4 flex-1 w-full justify-center items-center">
       <Animated.View className="w-full"
       entering={FadeInDown.duration(300).springify() }>
