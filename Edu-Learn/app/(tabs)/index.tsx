@@ -80,6 +80,11 @@ type ItemProps = {
 
 
 const Item = ({item, onPress}: ItemProps) => (
+
+  // <Animated.View className="flex-row justify-between item-center">
+
+  < Animated.View className="gap-0 flex-row justify-between item-center"
+    entering={FadeInDown.duration(500).delay(200).springify()}>
   <Pressable 
     className="mr-4 p-2 rounded-full item-center flex-col gap-2"
     onPress={onPress} >
@@ -98,6 +103,8 @@ const Item = ({item, onPress}: ItemProps) => (
       </View>
     </View>
   </Pressable>
+  </Animated.View>  
+  
 );
 
 
