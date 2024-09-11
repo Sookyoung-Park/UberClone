@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { View, Text, Pressable, ScrollView, Image} from "react-native";
 import React, { useState } from "react";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -46,7 +46,7 @@ type ItemData_Soo = {
 const DATA: ItemData_Soo[] = [
   {
     id:'business',
-    title:'MBA1',
+    title:'HyperGrowth MBA all in one',
     subtitle:'test subtitle1',
     image_480x270: 'string',
     is_paid:true,
@@ -80,11 +80,23 @@ type ItemProps = {
 
 
 const Item = ({item, onPress}: ItemProps) => (
-  <Pressable onPress={onPress} >
-    <Text>{item.title}</Text>
-    <Text>Paid: {item.price}</Text>
-    <Text>Review:{item.num_reviews}</Text>
-    <Text>subtitle: {item.subtitle}</Text>
+  <Pressable 
+    className="mr-4 p-2 rounded-full item-center flex-col gap-2"
+    onPress={onPress} >
+    <View 
+      className=" rounded-lg flex-col border-2 border-gray-100"
+    >
+      <Image source={require('../../assets/images/mbatest.png')} style={{ alignSelf: 'center', width: 300, height:195, borderRadius:6 }} />
+      
+      <View style={{marginTop:16, marginLeft:10, marginBottom:16}}>
+        <Text className="text-black text-lg"
+        style={{fontFamily:"BarlowSemiBold"}}>{item.title}</Text>
+        <Text className="text-gray-900 text-sm"
+        style={{fontFamily:"BarlowMedium"}}>${item.price}</Text>
+        <Text className="text-gray-900 text-xs"
+        style={{fontFamily:"BarlowMedium"}}>Review: {item.num_reviews}</Text>
+      </View>
+    </View>
   </Pressable>
 );
 
