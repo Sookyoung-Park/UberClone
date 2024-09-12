@@ -4,19 +4,10 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from "expo-router";
 import { FlatList } from "react-native";
+import { ItemData_Soo } from "@/types/types"
 
-interface Course{
-  id:string;
-  title:string;
-  subtitle:string;
-  image_480x270: string;
-  is_paid:boolean;
-  price:string;
-  num_reviews:number;
-}
-// interface SearchResponse{
-//   results:Course[];
-// }
+
+
 interface Category{
   id:string;
   name:string;
@@ -32,18 +23,7 @@ const categories: Category[] = [
   {id: "lifestyle", name: "Lifestyle", icon:"heart"}, 
 ];
 
-//Soo
-type ItemData_Soo = {
-  id:string;
-  title:string;
-  subtitle:string;
-  image_480x270: string;
-  is_paid:boolean;
-  price:string;
-  num_reviews:number;
-};
-
-const DATA: ItemData_Soo[] = [
+export const DATA: ItemData_Soo[] = [
   {
     id:'business',
     title:'HyperGrowth MBA all in one',
@@ -79,39 +59,50 @@ type ItemProps = {
 };
 
 
-const Item = ({item, onPress}: ItemProps) => (
-
-  // <Animated.View className="flex-row justify-between item-center">
-
-  < Animated.View className="gap-0 flex-row justify-between item-center"
-    entering={FadeInDown.duration(500).delay(200).springify()}>
-  <Pressable 
-    className="mr-4 p-2 rounded-full item-center flex-col gap-2"
-    onPress={onPress} >
-    <View 
-      className=" rounded-lg flex-col border-2 border-gray-100"
-    >
-      <Image source={require('../../assets/images/mbatest.png')} style={{ alignSelf: 'center', width: 300, height:195, borderRadius:6 }} />
-      
-      <View style={{marginTop:16, marginLeft:10, marginBottom:16}}>
-        <Text className="text-black text-lg"
-        style={{fontFamily:"BarlowSemiBold"}}>{item.title}</Text>
-        <Text className="text-gray-900 text-sm"
-        style={{fontFamily:"BarlowMedium"}}>${item.price}</Text>
-        <Text className="text-gray-900 text-xs"
-        style={{fontFamily:"BarlowMedium"}}>Review: {item.num_reviews}</Text>
-      </View>
-    </View>
-  </Pressable>
-  </Animated.View>  
-  
-);
-
-
 
 export default function HomeScreen() {
 
   const [selectedCategory, setSelectedCategory]=useState("business")
+  const [selectHeart, setSelectHeart] = useState(false)
+
+
+
+const Item = ({item, onPress}: ItemProps) => (
+  < Animated.View className="gap-0 flex-row justify-between item-center"
+    entering={FadeInDown.duration(500).delay(200).springify()}>
+  <View>
+    <Pressable 
+      className="mr-4 p-2 rounded-full item-center flex-col gap-2"
+      onPress={() => {
+        onPress
+      }}>
+      <View 
+        className=" rounded-lg flex-col border-2 border-gray-100"
+      >
+        <Image source={require('../../assets/images/mbatest.png')} style={{ alignSelf: 'center', width: 300, height:195, borderRadius:6 }} />
+        
+        <View style={{marginTop:16, marginLeft:10, marginBottom:16}}>
+          <Text className="text-black text-lg"
+          style={{fontFamily:"BarlowSemiBold"}}>{item.title}</Text>
+          <Text className="text-gray-900 text-sm"
+          style={{fontFamily:"BarlowMedium"}}>${item.price}</Text>
+          <View className="gap-0 flex-row justify-between item-center">
+            <Text className="text-gray-900 text-xs"
+            style={{fontFamily:"BarlowMedium"}}>Review: {item.num_reviews}</Text>
+            <Pressable style={{marginRight:16}} 
+            onPress={() => {
+              setSelectHeart(!selectHeart)
+            }}>
+            <Ionicons name="heart" color="red" size={20} />
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Pressable>
+  </View>
+  </Animated.View>  
+);
+
 
   const renderItem = ({item}: {item: ItemData_Soo}) => {
     if (item.id===selectedCategory){
@@ -223,12 +214,10 @@ export default function HomeScreen() {
             keyExtractor={item => item.id}
             extraData={selectedCategory}
             showsHorizontalScrollIndicator={false}
-          />
-        </View>
-        
+          />  
+        </View>        
       </ScrollView>
-      
-      
+
     </View>
     </>
   );
