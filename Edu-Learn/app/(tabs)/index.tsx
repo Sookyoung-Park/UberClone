@@ -178,7 +178,7 @@ const Item = ({item, onPress}: ItemProps) => (
       <ScrollView className="flex-1 bg-white gap-4">
         <Animated.View className="gap-0"
         entering={FadeInDown.duration(500).delay(200).springify()}>
-          <View className="flex-row justify-between px-6 pt-4  items-center">
+          <View className="flex-row justify-between px-6 pt-4 items-center">
             <Text className="text-lg"
             style={{fontFamily:'BarlowSemiBold'}}>Explore Topics</Text>
 
@@ -206,6 +206,33 @@ const Item = ({item, onPress}: ItemProps) => (
         </Animated.View>
 
         {/* Category Courses */}
+        <View className="mb-4 pl-4" >
+          <FlatList 
+            horizontal={true}
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            extraData={selectedCategory}
+            showsHorizontalScrollIndicator={false}
+          />  
+        </View>        
+      
+
+      {/* Recommended Courses */}
+      <View className="flex-1 bg-white gap-4">
+        <Animated.View className="gap-0"
+        entering={FadeInDown.duration(500).delay(200).springify()}>
+          <View className="flex-row justify-between pt-4 items-center">
+            <Text className="text-lg"
+            style={{fontFamily:'BarlowSemiBold'}}>Recommended Courses</Text>
+
+            <Text className="text-blue-700"
+            style={{fontFamily:'BarlowSemiBold'}}>See More</Text>
+
+          </View>
+        </Animated.View>
+
+        {/* Category Courses */}
         <View >
           <FlatList 
             horizontal={true}
@@ -216,8 +243,8 @@ const Item = ({item, onPress}: ItemProps) => (
             showsHorizontalScrollIndicator={false}
           />  
         </View>        
+      </View>
       </ScrollView>
-
     </View>
     </>
   );
