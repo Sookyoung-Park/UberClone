@@ -4,9 +4,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from "expo-router";
 import { FlatList } from "react-native";
-import { ItemData_Soo } from "@/types/types"
-
-
+import { ItemData_Soo } from "@/types/types";
 
 interface Category{
   id:string;
@@ -51,6 +49,33 @@ export const DATA: ItemData_Soo[] = [
     price:'4',
     num_reviews:30,
   },
+  {
+    id:'design',
+    title:'Design1',
+    subtitle:'test subtitle4',
+    image_480x270: 'string',
+    is_paid:true,
+    price:'411',
+    num_reviews:32310,
+  },
+  {
+    id:'design',
+    title:'Design2',
+    subtitle:'test subtitle5',
+    image_480x270: 'string',
+    is_paid:true,
+    price:'4231',
+    num_reviews:311,
+  },
+  {
+    id:'marketing',
+    title:'Marketing1',
+    subtitle:'test subtitle6',
+    image_480x270: 'string',
+    is_paid:true,
+    price:'12312',
+    num_reviews:12323,
+  },
 ];
 
 type ItemProps = {
@@ -66,7 +91,6 @@ export default function HomeScreen() {
   const [selectHeart, setSelectHeart] = useState(false)
 
 
-
 const Item = ({item, onPress}: ItemProps) => (
   < Animated.View className="gap-0 flex-row justify-between item-center"
     entering={FadeInDown.duration(500).delay(200).springify()}>
@@ -76,24 +100,19 @@ const Item = ({item, onPress}: ItemProps) => (
       onPress={() => {
         onPress
       }}>
-      <View 
-        className=" rounded-lg flex-col border-2 border-gray-100"
-      >
+      <View className=" rounded-lg flex-col border-2 border-gray-100">
         <Image source={require('../../assets/images/mbatest.png')} style={{ alignSelf: 'center', width: 300, height:195, borderRadius:6 }} />
         
         <View style={{marginTop:16, marginLeft:10, marginBottom:16}}>
           <Text className="text-black text-lg"
           style={{fontFamily:"BarlowSemiBold"}}>{item.title}</Text>
-          <Text className="text-gray-900 text-sm"
+          <Text className="text-gray-900 text-base"
           style={{fontFamily:"BarlowMedium"}}>${item.price}</Text>
           <View className="gap-0 flex-row justify-between item-center">
-            <Text className="text-gray-900 text-xs"
-            style={{fontFamily:"BarlowMedium"}}>Review: {item.num_reviews}</Text>
-            <Pressable style={{marginRight:16}} 
-            onPress={() => {
-              setSelectHeart(!selectHeart)
-            }}>
-            <Ionicons name="heart" color="red" size={20} />
+            <Text className="text-gray-600 text-sm"
+            style={{fontFamily:"BarlowMedium"}}>{item.num_reviews} Review</Text>
+            <Pressable style={{marginRight:16}} >
+            <Ionicons name="heart-outline" color="red" size={20} />
             </Pressable>
           </View>
         </View>
@@ -121,8 +140,7 @@ const Item = ({item, onPress}: ItemProps) => (
       className="mr-4 p-2 rounded-full item-center flex-col gap-4 items-center"
       style={{marginTop:2}}
       >
-        <View 
-        className={`p-4 rounded-full flex-col items-center ${
+        <View className={`p-4 rounded-full flex-col items-center ${
           selectedCategory === item.id? "border-2 border-blue-700": "border-2 border-gray-200"
         }`}>
           <Ionicons name={item.icon as any} size={24} color={selectedCategory===item.id? "#1d4ed8": "gray"}></Ionicons>
@@ -162,7 +180,8 @@ const Item = ({item, onPress}: ItemProps) => (
         {/* Search bar */}
         <View>
           <Pressable onPress={()=>router.push("/explore")}>
-            <View className="flex-row item-center bg-white/20 rounded-2xl p-4 mt-4">
+            <View className="flex-row item-center bg-white/20 rounded-2xl p-4 mt-4"
+            style={{marginBottom:12}}>
               <MaterialCommunityIcons
               name="magnify"
               size={20}
@@ -216,6 +235,7 @@ const Item = ({item, onPress}: ItemProps) => (
             showsHorizontalScrollIndicator={false}
           />  
         </View>        
+        
       
 
       {/* Recommended Courses */}

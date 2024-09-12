@@ -40,6 +40,7 @@ export default function RootLayout() {
         screenOptions={{headerShown: false}}
         >
           <Stack.Screen name="index" />
+          <Stack.Screen name="coursedetails" />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
